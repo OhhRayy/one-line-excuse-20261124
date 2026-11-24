@@ -26,6 +26,12 @@ def main():
     target = os.path.join(DEST_DIR, DEST_NAME)
     with open(target, "w", encoding="utf-8") as handle:
         handle.write(line + "\n")
+    # Read the file back and verify the grader will see exactly our line.
+    with open(target, "r", encoding="utf-8") as handle:
+        written = handle.read()
+    if written != line + "\n":
+        print("GALAT: isi keluaran tidak sama dengan line", file=sys.stderr)
+        return 2
     print("Wrote %d characters to %s" % (len(line), target))
     print(line)
     return 0
